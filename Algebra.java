@@ -25,43 +25,95 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		if (x2 < 0) {
+			return minus(x1, -x2);
+		}
+		int result = x1;
+		while (x2 > 0) {
+			result++;
+			x2--;
+		}
+		return result;
 	}
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		if (x2 < 0) {
+			return plus(x1, -x2);
+		}
+		int result = x1;
+		while (x2 > 0) {
+			result--;
+			x2--;
+		}
+		return result;
 	}
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		if (x2 < 0) {
+			return -times(x1, -x2);
+		}
+		int result = 0;
+		while (x2 > 0) {
+			result = plus(result, x1);
+			x2--;
+		}
+		return result;
 	}
 
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
 		// Replace the following statement with your code
-		return 0;
+		if (n == 0) return 1;
+        int result = 1;
+	    do {
+	        result = times(result,x);
+	    	n--;
+	    }
+	    while (n > 0);
+	    return result;
 	}
 
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		if (x2 == 0) throw new ArithmeticException("Division by zero");
+		if (x1 < 0 && x2 < 0) return div(-x1, -x2);
+		if (x1 < 0) return -div(-x1, x2);
+		if (x2 < 0) return -div(x1, -x2);
+		
+		int quotient = 0;
+		while (x1 >= x2) {
+			x1 = minus(x1, x2);
+			quotient++;
+		}
+		return quotient;
 	}
 
 	// Returns x1 % x2
 	public static int mod(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		if (x2 == 0) throw new ArithmeticException("Division by zero");
+		if (x1 < 0) return -mod(-x1, x2);
+		if (x2 < 0) x2 = -x2;
+		
+		while (x1 >= x2) {
+			x1 = minus(x1, x2);
+		}
+		return x1;
 	}	
 
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
-		// Replace the following statement with your code
-		return 0;
+		if (x < 0) throw new ArithmeticException("Square root of negative number");
+		if (x == 0) return 0;
+		
+		int result = 1;
+		int prev = 0;
+		
+		while (result != prev && times(result, result) <= x) {
+			prev = result;
+			result++;
+		}
+		return minus(result, 1);
 	}	  	  
 }
